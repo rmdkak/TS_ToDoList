@@ -1,6 +1,6 @@
-import { styled } from "styled-components";
-import { ToDoList } from "./Home";
+// import { styled } from "styled-components";
 import Button from "./elem/Button";
+import { ToDoList } from "../type/type";
 
 type props = {
   item: ToDoList;
@@ -10,10 +10,13 @@ type props = {
 
 const Card = ({ item, handleChangeTodoBoolean, handleDelteTodo }: props) => {
   return (
-    <StList key={item.id}>
-      <h3>{item.title}</h3>
-      <p>{item.body}</p>
-      <ButtonBox>
+    <li
+      className="flex flex-col border-[1px] border-black w-40 h-40 p-5 gap-y-4"
+      key={item.id}
+    >
+      <h3 className="font-bold overflow-hidden">{item.title}</h3>
+      <p className="overflow-hidden">{item.body}</p>
+      <div className="flex justify-between">
         <Button
           size={"small"}
           styleType={"cancel"}
@@ -28,24 +31,24 @@ const Card = ({ item, handleChangeTodoBoolean, handleDelteTodo }: props) => {
         >
           삭제
         </Button>
-      </ButtonBox>
-    </StList>
+      </div>
+    </li>
   );
 };
 
-const StList = styled.li`
-  display: flex;
-  flex-direction: column;
-  list-style-type: none;
-  border: 1px solid;
-  width: 150px;
-  height: 150px;
-  padding: 20px;
-`;
+// const StList = styled.li`
+//   display: flex;
+//   flex-direction: column;
+//   list-style-type: none;
+//   border: 1px solid;
+//   width: 150px;
+//   height: 150px;
+//   padding: 20px;
+// `;
 
-const ButtonBox = styled.div`
-  display: flex;
-  justify-content: space-around;
-`;
+// const ButtonBox = styled.div`
+//   display: flex;
+//   justify-content: space-around;
+// `;
 
 export default Card;

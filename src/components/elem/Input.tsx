@@ -1,4 +1,4 @@
-import styled from "styled-components";
+// import styled from "styled-components";
 
 type Props = {
   value: string;
@@ -8,14 +8,22 @@ type Props = {
 };
 
 const Input = ({ value, id, onChange, type }: Props) => {
-  return <InputForm value={value} id={id} onChange={onChange} type={type} />;
+  return (
+    <input
+      className="w-52 h-7 p-1.5 border-[1px] border-black outline-none"
+      value={value}
+      id={id}
+      onChange={onChange}
+      type={type}
+    />
+  );
 };
 
-const InputForm = styled.input`
-  width: 200px;
-  height: 15px;
-  padding: 5px;
-  outline: none;
-`;
+// const InputForm = styled.input`
+//   width: 200px;
+//   height: 15px;
+//   padding: 5px;
+//   outline: none;
+// `;
 
 export default Input;

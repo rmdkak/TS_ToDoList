@@ -1,73 +1,67 @@
-import React from "react";
-import { ToDoList } from "./Home";
+import { useDispatch, useSelector } from "react-redux";
 import Card from "./Card";
-import { styled } from "styled-components";
+// import { styled } from "styled-components";
+import { deleteTodo, updateTodo } from "../config/module/todo";
+import { RootState } from "../config/store/store";
 
-type props = {
-  todo: ToDoList[];
-  setTodo: React.Dispatch<React.SetStateAction<ToDoList[]>>;
-};
+const List = () => {
+  const dispatch = useDispatch();
+  const todo = useSelector((state: RootState) => state.todo);
 
-const List = ({ todo, setTodo }: props) => {
   const handleDelteTodo = (id: string): void => {
-    setTodo(todo.filter((obj) => obj.id !== id));
+    dispatch(deleteTodo(id));
   };
 
   const handleChangeTodoBoolean = (id: string): void => {
-    setTodo(
-      todo.map((obj) => {
-        if (obj.id === id) {
-          return { ...obj, isDone: !obj.isDone };
-        }
-        return { ...obj };
-      })
-    );
+    dispatch(updateTodo(id));
   };
 
   return (
-    <StContainer>
-      <h2>할 일 목록</h2>
-      <StUl>
+    <div className="flex flex-col w-full justify-center">
+      <h2 className="font-bold text-lg my-2">할 일 목록</h2>
+      <ul className="flex items-center flex-wrap w-full gap-12">
         {todo
           .filter((obj) => obj.isDone === false)
           .map((item) => (
             <Card
+              key={item.id}
               item={item}
               handleChangeTodoBoolean={handleChangeTodoBoolean}
               handleDelteTodo={handleDelteTodo}
             />
           ))}
-      </StUl>
-      <h2>해낸 일 목록</h2>
-      <StUl>
+      </ul>
+      <h2 className="font-bold text-lg my-2">해낸 일 목록</h2>
+      <ul className="flex items-center flex-wrap w-full gap-12">
         {todo
           .filter((obj) => obj.isDone === true)
           .map((item) => (
             <Card
+              key={item.id}
               item={item}
               handleChangeTodoBoolean={handleChangeTodoBoolean}
               handleDelteTodo={handleDelteTodo}
             />
           ))}
-      </StUl>
-    </StContainer>
+      </ul>
+    </div>
   );
 };
 
-const StContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  justify-content: center;
-`;
+// const StContainer = styled.div`
+//   display: flex;
+//   flex-direction: column;
+//   width: 100%;
+//   justify-content: center;
+// `;
 
-const StUl = styled.ul`
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-  width: 100%;
-  padding: 0;
-  gap: 50px;
-`;
+// const StUl = styled.ul`
+//   display: flex;
+//   align-items: center;
+//   flex-wrap: wrap;
+//   width: 100%;
+//   padding: 0;
+//   gap: 50px;
+// `;
 
 export default List;
